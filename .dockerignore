@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+artifacts
+cache
+.git
+.env
+.env.*
+!example.env
+*.log
+coverage
+.vscode
+.idea
+uploads

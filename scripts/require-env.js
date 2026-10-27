@@ -3,7 +3,11 @@ const path = require('path');
 
 const envPath = path.resolve(process.cwd(), '.env');
 
-if (!fs.existsSync(envPath) || fs.statSync(envPath).size === 0) {
+// In containers/CI, env vars are injected directly by the orchestrator (Docker Compose's
+// env_file/environment, GitHub Actions env) rather than a committed .env file on disk.
+const envInjectedExternally = Boolean(process.env.PORT || process.env.CI);
+
+if (!envInjectedExternally && (!fs.existsSync(envPath) || fs.statSync(envPath).size === 0)) {
   console.error(`
 Missing .env file.
 
